@@ -1,6 +1,8 @@
 # NoSQL (Not Only SQL)
 
-### 1. 등장배경
+## Part 1. 기본개요 및 이론
+
+#### 1. 등장배경
 
 1. 대량의 데이터를 Read/Write할 필요성 증가
 2. 지속적으로 증가하는 사용자에 대한 신속한 증가
@@ -23,7 +25,7 @@ scale out하기에 기존 RDB는 많은 비용을 지불해야함.
 
 
 
-### 2. 개념
+#### 2. 개념
 
 Not Only SQL은 비관계형 데이터 스토리지 시스템, 비정형 데이베이스들을 통칭
 
@@ -42,7 +44,7 @@ NoSQL에서도 스키마는 존재하나, application이 가지고 있음 (appli
 - Key-Value : Dynamo, Redis, Voldemort, Riak
 - Column Oriented : Cassandra, HBase, Big Table
 - Document : MongoDB,  Couchbase
--  Graph : Neo4j
+- Graph : Neo4j
 
 
 
@@ -58,7 +60,7 @@ NoSQL에서도 스키마는 존재하나, application이 가지고 있음 (appli
 
 
 
-###  기본 이론
+#### 3. 기본 이론
 
 BASE - Basically Available, Soft state, Eventually consistency
 
@@ -70,11 +72,65 @@ BASE - Basically Available, Soft state, Eventually consistency
 
 
 
-### NoSQL vs RDBMS
+#### 4. NoSQL vs RDBMS
 
 | 구분     | NoSQL                                                        | RDBMS                              |
 | -------- | ------------------------------------------------------------ | ---------------------------------- |
 | 장단점   | 데이터 무결성, 정합성 보장하지 않음 <br />비정형, 반정형 데이터 처리 | 데이터 무결성 보장(CA)             |
 | 특징     | 약한 consistency<br/> schema 없거나 변경 용이                | JOIN, ACID                         |
 | use case | 대량 데이터 처리, 빠른 성능 요구                             | 중요한 트랜젝션 처리 요구되는 경우 |
+
+
+
+# 
+
+## Part 2. 데이터 모델 종류 및 설명
+
+### 1. NoSQL Data Model
+
+기존 RDBMS와는 다른 관점에서 봐라봐야함. 
+
+NoSQL 대부분은 ACID를 지원하지 않고, 원자적 트랜잭션을 지원한다.
+
+가능하다면 원자성이 필요한 범위를 하나의 집합 내로 한정하는 것이 바람직.
+
+집합 지향적으로 모델링하게 되면 자연스럽게 데이터 중복이 발생.
+
+데이터 중복을 허용함으로써, 어플리케이션에서의 쿼리 효율성에 집중하다록 설계해야함
+
+
+
+### 2. Key-Value Model
+
+**Key를 이용해 Value에 접근하는 구조.** 어떠한 형태 (List,Set)의 데이터든 저장이 가능, 각 DB별로 value의 최고 저장 size가 있으므로 유의, Key를 기반으로 정렬/비정렬 가능한 점이 다르다.
+
+<img src="https://k.kakaocdn.net/dn/pF5r4/btqwWeUIrnk/cqOWdKIkcByGMuKnBmMDfk/img.png" alt="img" style="zoom: 33%;" />
+
+<center>Redis의 Key-Value Models</center>
+
+### 3. Document 모델
+
+집합 구조를 문서형태로 확인 가능. document 하나의 크기 제한이있음. 집합 내의 필드를 이용해 쿼리 할 수 있음. 문서는 주로 JSON or BSON(Binary JSON), 문서 내의 값들은  필드라는 형태로 존재.
+
+<img src="https://k.kakaocdn.net/dn/Dl20n/btqwVDOa8R8/SAAW01jpyY22Oak2Nw2S9k/img.png" alt="img" style="zoom:50%;" />
+
+
+
+<center>mongoDB의 document model</center>
+
+
+
+### 4. Column Family 모델
+
+두 단계의 집합(Map) 구조, Row Key에 다수의 column & value가 들어감. Row Key로 자동 정렬, column key로 자동 정렬 가능.
+
+<img src="https://k.kakaocdn.net/dn/b7llEJ/btqwXd1DWf3/D2iZntiwkrESJfqzrxCVh1/img.png" alt="img" style="zoom:33%;" />
+
+<center>cassandrDB의 column family 모델</center>
+
+### 5. Graph 모델
+
+Entity와 Entity 사의 관계를 저장하는 형태. 대부분 분산DB가 아님. RDB처럼 ACID를 지원
+
+
 
