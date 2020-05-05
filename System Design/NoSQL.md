@@ -66,7 +66,7 @@ BASE - Basically Available, Soft state, Eventually consistency
 
 - Sote state : 데이터의 사본은 inconsistent 할 수 있음. 노드의 상태는 외부에 전달된 데이터의 의해 결정된다.
 - Eventually Consistent : 데이터의 복사본은 더 이상의 업데이트가 없다면 약간의 지연시간 후에 consistent 하게 된다.
-- Basically Available : Falut의 가능성은 있지만, 전체 시스템의 fault가 되지는 않음
+- Basically Available : Fault의 가능성은 있지만, 전체 시스템의 fault가 되지는 않음
 
 
 
